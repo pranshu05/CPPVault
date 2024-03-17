@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Home() {
     return (
         <div className="w-11/12 md:w-4/5 lg:w-3/4 xl:w-2/3 2xl:w-1/2 mx-auto flex flex-col items-center justify-between py-20 h-full">
@@ -6,12 +8,12 @@ export default function Home() {
             </div>
 
             <div className="w-full rounded-lg flex flex-col my-10">
-                <a href="/docs" className="rounded-lg border border-transparent p-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30">
+                <Link href="/docs" className="rounded-lg border border-transparent p-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30">
                     <h2 className="mb-3 text-2xl font-semibold">
                         Docs{" "}<span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">-&gt;</span>
                     </h2>
                     <p className="m-0 text-sm opacity-50">Find in-depth information about DataStructures using CPP.</p>
-                </a>
+                </Link>
             </div>
         </div>
     );
