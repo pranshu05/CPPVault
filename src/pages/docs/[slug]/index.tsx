@@ -1,13 +1,22 @@
 import { useEffect, useState } from 'react';
 import { serialize } from 'next-mdx-remote/serialize';
-import rehypePrism from 'rehype-prism';
 import fs from 'fs';
 import path from 'path';
 import MetaInfo from '@/components/(docs)/(slug)/MetaInfo';
 import DocsContent from '@/components/(docs)/(slug)/DocsContent';
 import { getViewCount, incrementViewCount } from '../../../lib/ViewsData';
 import matter from 'gray-matter';
-import 'prism-themes/themes/prism-atom-dark.css';
+import rehypeHighlight from 'rehype-highlight';
+import langPython from "highlight.js/lib/languages/python"
+import langRust from "highlight.js/lib/languages/rust"
+import langCPP from "highlight.js/lib/languages/cpp"
+import 'highlight.js/styles/atom-one-dark.css'
+
+export const langauges = {
+    python: langPython,
+    rust: langRust,
+    cpp: langCPP,
+}
 
 interface Frontmatter {
     title: string;
@@ -48,8 +57,8 @@ const Docs: React.FC<DocsProps> = ({ frontMatter, mdxSource }) => {
         <div className="w-11/12 md:w-4/5 lg:w-3/4 xl:w-2/3 2xl:w-1/2 mx-auto">
             <div className="py-28 text-center">
                 <MetaInfo date={date} readTime={readTime} viewCount={viewCount} />
-                <h1 className="text-6xl font-bold text-zinc-100">{title}</h1>
-                <p className="text-xl text-zinc-100">{description}</p>
+                <h1 className="text-6xl font-bold text-zinc-100 mb-4">{title}</h1>
+                <p className="text-xl text-zinc-400">{description}</p>
             </div>
             <hr className='mt-8 mb-4' />
             <DocsContent mdxSource={mdxSource} />
@@ -73,7 +82,13 @@ export async function getStaticProps({ params }: { params: { slug: string } }) {
     const { data: frontMatter, content } = matter(fileContent);
 
     const mdxSource = await serialize(content, {
-        mdxOptions: { rehypePlugins: [[rehypePrism, { ignoreMissing: true, aliases: {} }] as any] },
+        mdxOptions: {
+            rehypePlugins: [[rehypeHighlight, {
+                ignoreMissing: true,
+                langauges,
+                aliases: {}
+            }]] as any
+        },
     });
 
     return { props: { frontMatter: { ...frontMatter, slug }, mdxSource } };

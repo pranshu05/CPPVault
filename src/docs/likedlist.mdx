@@ -11,7 +11,7 @@ readTime: 10
 
 Linked List is a list of nodes. Node has two parts, one part containing the data and the other part containing the address of the next node of the list.
 
-```
+```cpp
 struct Node{
     int data; //4 bytes
     Node* next; //4 bytes
@@ -38,7 +38,7 @@ The first node is called the head node. The only information we keep for the lis
 
 ### Creating a Node
 
-```
+```cpp
 #include <iostream>
 using namespace std;
 
@@ -71,7 +71,7 @@ Node data: 1
 
 ### Creating a Linked List
 
-```
+```cpp
 #include <iostream>
 using namespace std;
 
@@ -116,7 +116,7 @@ int main() {
 
 You can also achieve the same thing by:
 
-```
+```cpp
 #include <iostream>
 using namespace std;
 
@@ -160,7 +160,7 @@ Linked List: 1 2 3
 
 This method creates unnecessary pointers which creates memory that is not useful. Below is the most optimized method to create a Linked List.
 
-```
+```cpp
 #include <iostream>
 using namespace std;
 
@@ -197,7 +197,7 @@ It is a method to go through each node of a LinkedLit from the beginning until t
 
 #### Count number of nodes in a Linked List
 
-```
+```cpp
 #include<iostream>
 using namespace std;
 
@@ -228,7 +228,7 @@ int main(){
 
 #### Print the data of the list
 
-```
+```cpp
 #include<iostream>
 using namespace std;
 
@@ -260,7 +260,7 @@ int main(){
 
 Let's say that there is a list containing 3 nodes, and there's a node that we want to insert. We will assign a temp pointer to the node which we want to insert at the end.
 
-```
+```cpp
 #include<iostream>
 using namespace std;
 
@@ -292,7 +292,7 @@ int main(){
 
 ### Optimal code to create a Linked List using insertAtEnd function
 
-```
+```cpp
 #include<iostream>
 using namespace std;
 
@@ -335,7 +335,7 @@ int main(){
 
 Abstract code:
 
-```
+```cpp
 ptr -> link = head;
 
 head = ptr;
