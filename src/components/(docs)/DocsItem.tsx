@@ -1,6 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
 import Link from 'next/link';
-import { useState } from 'react';
 
 interface DocsItemProps {
     slug: string;
