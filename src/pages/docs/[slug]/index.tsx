@@ -4,13 +4,14 @@ import fs from 'fs';
 import path from 'path';
 import MetaInfo from '@/components/(docs)/(slug)/MetaInfo';
 import DocsContent from '@/components/(docs)/(slug)/DocsContent';
+import DocsFooter from '@/components/(docs)/(slug)/DocsFooter';
 import { getViewCount, incrementViewCount } from '../../../lib/ViewsData';
 import matter from 'gray-matter';
 import rehypeHighlight from 'rehype-highlight';
 import langPython from "highlight.js/lib/languages/python"
 import langRust from "highlight.js/lib/languages/rust"
 import langCPP from "highlight.js/lib/languages/cpp"
-import 'highlight.js/styles/atom-one-dark.css'
+import 'highlight.js/styles/github-dark.css'
 
 export const langauges = {
     python: langPython,
@@ -62,6 +63,7 @@ const Docs: React.FC<DocsProps> = ({ frontMatter, mdxSource }) => {
             </div>
             <hr className='mt-8 mb-4' />
             <DocsContent mdxSource={mdxSource} />
+            <DocsFooter />
         </div>
     );
 };

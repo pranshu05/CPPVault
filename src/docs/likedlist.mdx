@@ -7,7 +7,7 @@ readTime: 10
 
 # Linked List
 
-![Linked List](images/linkedlist.png)
+![Linked List](https://github.com/pranshu05/pranshu05/assets/70943732/c4dc0cc7-82ff-444b-a360-b8b58f0bbac3)
 
 Linked List is a list of nodes. Node has two parts, one part containing the data and the other part containing the address of the next node of the list.
 
@@ -25,14 +25,6 @@ The first node is called the head node. The only information we keep for the lis
 -   Single Linked List: Navigation is forward only.
 -   Doubly Linked List: Both Forward and Backward navigation is possible.
 -   Circular Linked List: The last node is linked to the first node.
-
-## Time Complexity
-
--   Access to nodes
-    -   Proportional to the number of nodes.
-    -   O(n)
--   Insert/ Delete
-    -   O(n)
 
 ## Implementation (Singly Linked List)
 
@@ -63,7 +55,7 @@ int main() {
 }
 ```
 
-Output:
+#### Output:
 
 ```sh
 Node data: 1
@@ -152,7 +144,7 @@ int main() {
 }
 ```
 
-output:
+#### Output:
 
 ```sh
 Linked List: 1 2 3
@@ -193,7 +185,7 @@ In this code, we are accessing the address of all the nodes of the list using th
 
 ### Traversing a single Linked List
 
-It is a method to go through each node of a LinkedLit from the beginning until the end node is reached.
+It is a method to go through each node of a Linked List from the beginning until the end node is reached.
 
 #### Count number of nodes in a Linked List
 
@@ -226,7 +218,7 @@ int main(){
 }
 ```
 
-#### Print the data of the list
+#### Print the data of a list
 
 ```cpp
 #include<iostream>
@@ -256,7 +248,7 @@ int main(){
 }
 ```
 
-### How to insert a node at the end of the list?
+### Insert a node at the end of a list
 
 Let's say that there is a list containing 3 nodes, and there's a node that we want to insert. We will assign a temp pointer to the node which we want to insert at the end.
 
@@ -331,9 +323,9 @@ int main(){
 }
 ```
 
-### How to insert a node at the beginning of the list?
+### Insert a node at the beginning of a list
 
-Abstract code:
+#### Abstract code:
 
 ```cpp
 ptr -> link = head;
@@ -341,4 +333,64 @@ ptr -> link = head;
 head = ptr;
 ```
 
-Here head is the first node of the list and ptr points to the node that we want to insert at the beginning.
+Here the head is the first node of the list and ptr points to the node that we want to insert at the beginning.
+
+### Insert a new node at a given position in a list
+
+Assuming that we already have a linked list and we want to insert a new node at the third position. We will create a new node (ptr2 pointing to it) first, and then we will need to traverse the list(ptr pointer). Now we will traverse the list till the node just before the position we want to insert the new node. (in this case till the 2<sup>nd</sup> node).
+
+```cpp
+ptr2->link = ptr->link
+//this joins the new node with the 3rd node
+ptr->link = ptr2
+//this joins the 2nd node with the inserted node
+```
+
+### Delete the first node of a list
+
+To achieve this we need to create a pointer which points to the first node of the list and we'll have to move the head pointer to the 2<sup>nd</sup> node and we'll free the memory of the temp pointer.
+
+```cpp
+//In this function we are passing the head function and we return the updated head.
+Node* delFirst(Node* head){
+	if(head == nullptr)
+		cout << "List is empty!";
+	else{
+		Node* temp = head;
+		head = head*link;
+		free(temp);
+		temp = nullptr;
+	}
+	return head;
+}
+```
+
+### Delete the last node of a list
+
+Suppose we already have a Linked List and we want to delete the last node of it. We will create a temp pointer pointing to the first node of the list and we'll need to traverse the list. For that we will keep two pointers. One pointer will stop at the last node and the other will stop at the second last node of the list.
+
+```cpp
+temp1->link = nullptr; //remove the link between the second last and the last node
+
+free(temp2); //Delete the last node
+temp2 = bullptr;
+```
+
+#### Can I use only 1 temp ptr?
+
+Yes! we can achieve it by using only 1 pointer. We will move the temp pointer to the second last node of the list and we'll free memory of the last node using the temp pointer.
+
+```cpp
+free(temp->link);
+temp->link = nullptr;
+```
+
+### Delete a node at the given position in a list
+
+For this we will create 2 temp pointers pointing to the first node of the list. We'll move the first pointer to the node before the node which we want to delete and the second one to the node which we want to delete. Now we will update the link of the 1<sup>st</sup> pointer and free the memory of the second pointer.
+
+```cpp
+temp1->link = temp2->link;
+free(temp2);
+temp2 = nullptr;
+```

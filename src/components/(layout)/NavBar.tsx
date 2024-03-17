@@ -8,7 +8,7 @@ const font = Font({ subsets: ["latin"], weight: "400" });
 const NavBar: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const pathname = usePathname();
-    const activeColor = "#D791FF";
+    const activeColor = "#3F51B5";
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -30,10 +30,8 @@ const NavBar: React.FC = () => {
                             )}
                         </svg>
                     </button>
-                    <div className={`${isMenuOpen ? "flex absolute right-5 top-16 py-3 z-50 bg-transparent border border-gray-500 rounded-md  min-w-[200px] items-center text-white" : "hidden"} flex-col lg:flex lg:flex-row lg:items-center lg:w-auto lg:space-x-6 rtl:space-x-reverse`}>
-                        <>
-                            <Link href="/docs" style={{ color: pathname === "/about" ? `${activeColor}` : "", fontWeight: pathname === "/about" ? "bold" : "", }} onClick={() => setIsMenuOpen} className="text-sm text-white w-full h-full hover:bg-[#0002] lg:hover:text-blue-400 transition-all max-lg:px-5 max-lg:py-2 lg:mt-0"> Docs</Link>
-                        </>
+                    <div className={`${isMenuOpen ? "flex absolute right-5 top-16 py-3 z-50 border border-gray-500 rounded-md bg-black bg-opacity-50 backdrop backdrop-blur-sm min-w-[200px] items-center text-white" : "hidden"} flex-col lg:flex lg:flex-row lg:items-center lg:w-auto lg:space-x-6 rtl:space-x-reverse`}>
+                        <Link href="/docs" style={{ color: pathname === "/docs" ? `${activeColor}` : "", }} onClick={() => setIsMenuOpen} className="text-sm text-white w-full h-full hover:bg-[#0002] font-bold hover:text-fuchsia-500 transition-all max-lg:px-5 max-lg:py-2 lg:mt-0">Docs</Link>
                     </div>
                 </div>
             </div>
