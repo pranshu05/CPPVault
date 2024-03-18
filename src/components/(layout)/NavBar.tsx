@@ -18,7 +18,7 @@ const NavBar: React.FC = () => {
         <nav className="w-11/12 md:w-4/5 lg:w-3/4 xl:w-2/3 2xl:w-1/2 mx-auto bg-transparent mb-10">
             <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl py-4 transition-all duration-300">
                 <Link href="/" className="flex gap-2 items-center rtl:space-x-reverse">
-                    <span className={`${font.className} self-center text-2xl font-semibold whitespace-nowrap text-white`}> DataStructures</span>
+                    <span className={`${font.className} self-center text-2xl font-semibold whitespace-nowrap text-white`}>CPPVault</span>
                 </Link>
                 <div className={"flex flex-col rtl:space-x-reverse"}>
                     <button className="text-white focus:outline-none lg:hidden" onClick={toggleMenu}>

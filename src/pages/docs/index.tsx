@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { getViewCount } from '../../lib/ViewsData';
 import DocsPageHeader from '@/components/(docs)/DocsPageHeader';
-import DocsList from '@/components/(docs)/DocsList';
+import CategoryList from '@/components/(docs)/CategoryList';
 
 interface Frontmatter {
     title: string;
@@ -12,6 +11,7 @@ interface Frontmatter {
     description: string;
     readTime: number;
     img: string;
+    category: string;
 }
 
 interface Docs {
@@ -19,33 +19,11 @@ interface Docs {
     frontmatter: Frontmatter;
 }
 
-const Blog: React.FC<{ docs: Docs[] }> = ({ docs }) => {
-    const [viewCounts, setViewCounts] = useState<{ [key: string]: number }>({});
-
-    const docsByYear: { [year: string]: Docs[] } = docs.reduce((acc, docs) => {
-        const year = docs.frontmatter.date.slice(-4);
-        acc[year] = [...(acc[year] || []), docs];
-        return acc;
-    }, {});
-
-    useEffect(() => {
-        const fetchViewCounts = async () => {
-            const counts = await Promise.all(docs.map(({ slug }) => getViewCount(slug)));
-            setViewCounts(Object.fromEntries(docs.map((docs, i) => [docs.slug, counts[i]])));
-        };
-
-        fetchViewCounts();
-    }, [docs]);
-
+const DocsIndex: React.FC<{ categories: string[] }> = ({ categories }) => {
     return (
         <div className='w-11/12 md:w-4/5 lg:w-3/4 xl:w-2/3 2xl:w-1/2 mx-auto'>
             <DocsPageHeader />
-            {Object.entries(docsByYear).map(([year, yeardocs]) => (
-                <div key={year}>
-                    <DocsList docs={yeardocs} viewCounts={viewCounts} />
-                </div>
-            ))}
-
+            <CategoryList categories={categories} />
         </div>
     );
 };
@@ -63,13 +41,14 @@ export async function getStaticProps() {
                 description: data.description || '',
                 readTime: data.readTime || 0,
                 img: data.img || '',
+                category: data.category || 'Uncategorized',
             },
         };
     });
 
-    docs.sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime());
+    const categories = Array.from(new Set(docs.map(doc => doc.frontmatter.category)));
 
-    return { props: { docs } };
+    return { props: { categories } };
 }
 
-export default Blog;
+export default DocsIndex;

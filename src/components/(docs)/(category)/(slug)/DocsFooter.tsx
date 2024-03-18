@@ -5,6 +5,6 @@ const DocsFooter: React.FC = () => (
             This site is open source. <a className="link" href="https://github.com/pranshu05/DataStructures" target="_blank">Improve this page</a>
         </div>
     </div>
-)
+);
 
 export default DocsFooter;

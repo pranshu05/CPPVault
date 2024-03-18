@@ -2,20 +2,19 @@ import { useEffect, useState } from 'react';
 import { serialize } from 'next-mdx-remote/serialize';
 import fs from 'fs';
 import path from 'path';
-import MetaInfo from '@/components/(docs)/(slug)/MetaInfo';
-import DocsContent from '@/components/(docs)/(slug)/DocsContent';
-import DocsFooter from '@/components/(docs)/(slug)/DocsFooter';
-import { getViewCount, incrementViewCount } from '../../../lib/ViewsData';
 import matter from 'gray-matter';
 import rehypeHighlight from 'rehype-highlight';
-import langPython from "highlight.js/lib/languages/python"
-import langRust from "highlight.js/lib/languages/rust"
+
+import MetaInfo from '@/components/(docs)/(category)/(slug)/MetaInfo';
+import DocsContent from '@/components/(docs)/(category)/(slug)/DocsContent';
+import DocsFooter from '@/components/(docs)/(category)/(slug)/DocsFooter';
+import { getViewCount, incrementViewCount } from '../../../../lib/ViewsData';
+
 import langCPP from "highlight.js/lib/languages/cpp"
+
 import 'highlight.js/styles/github-dark.css'
 
-export const langauges = {
-    python: langPython,
-    rust: langRust,
+export const languages = {
     cpp: langCPP,
 }
 
@@ -69,17 +68,19 @@ const Docs: React.FC<DocsProps> = ({ frontMatter, mdxSource }) => {
 };
 
 export async function getStaticPaths() {
-    const docs = path.join(process.cwd(), 'src', 'docs');
-    const paths = fs.readdirSync(docs).map((fileName) => ({
-        params: { slug: fileName.replace(/\.mdx$/, '') },
+    const docsDirectory = path.join(process.cwd(), 'src', 'docs');
+    const docs = fs.readdirSync(docsDirectory);
+
+    const paths = docs.map((doc) => ({
+        params: { category: '', slug: doc.replace(/\.mdx$/, '') },
     }));
 
     return { paths, fallback: false };
 }
 
-export async function getStaticProps({ params }: { params: { slug: string } }) {
-    const { slug } = params;
-    const filePath = path.join(process.cwd(), 'src', 'docs', `${slug}.mdx`);
+export async function getStaticProps({ params }: { params: { category: string; slug: string } }) {
+    const { category, slug } = params;
+    const filePath = path.join(process.cwd(), 'src', 'docs', category, `${slug}.mdx`);
     const fileContent = fs.readFileSync(filePath, 'utf-8');
     const { data: frontMatter, content } = matter(fileContent);
 
@@ -87,7 +88,7 @@ export async function getStaticProps({ params }: { params: { slug: string } }) {
         mdxOptions: {
             rehypePlugins: [[rehypeHighlight, {
                 ignoreMissing: true,
-                langauges,
+                languages,
                 aliases: {}
             }]] as any
         },
