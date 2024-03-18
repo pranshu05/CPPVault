@@ -4,6 +4,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import { getViewCount } from '@/lib/ViewsData';
 import DocsList from '@/components/(docs)/(category)/DocsList';
+import Head from 'next/head';
 
 interface Frontmatter {
     title: string;
@@ -33,6 +34,11 @@ const CategoryDocs: React.FC<{ category: string; docs: Docs[] }> = ({ category, 
 
     return (
         <div className='w-11/12 md:w-4/5 lg:w-3/4 xl:w-2/3 2xl:w-1/2 mx-auto'>
+            <Head>
+                <title>CPPVault // {category}</title>
+                <meta name='og:title' content={`CPPVault // ${category}`} />
+                <meta name='og:description' content='A collection of open-source CPP docs' />
+            </Head>
             <h1 className="text-5xl font-bold text-center">{category}</h1>
             <DocsList docs={docs} viewCounts={viewCounts} />
         </div>

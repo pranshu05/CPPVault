@@ -4,6 +4,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import DocsPageHeader from '@/components/(docs)/DocsPageHeader';
 import CategoryList from '@/components/(docs)/CategoryList';
+import Head from 'next/head';
 
 interface Frontmatter {
     title: string;
@@ -22,6 +23,11 @@ interface Docs {
 const DocsIndex: React.FC<{ categories: string[] }> = ({ categories }) => {
     return (
         <div className='w-11/12 md:w-4/5 lg:w-3/4 xl:w-2/3 2xl:w-1/2 mx-auto'>
+            <Head>
+                <title>CPPVault // Docs</title>
+                <meta name='og:title' content={`CPPVault // Docs`} />
+                <meta name='og:description' content='A collection of open-source CPP docs' />
+            </Head>
             <DocsPageHeader />
             <CategoryList categories={categories} />
         </div>
