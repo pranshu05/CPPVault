@@ -3,10 +3,12 @@ import type { AppProps } from "next/app";
 import NavBar from "@/components/(layout)/NavBar";
 import Footer from "@/components/(layout)/Footer";
 import Head from "next/head";
+import { Analytics } from '@vercel/analytics/react';
 
 export default function App({ Component, pageProps }: AppProps) {
     return (
         <div className="min-h-dvh w-dvw p-0 m-0 bg-black text-white flex flex-col">
+            <Analytics />
             <Head>
                 <meta name='og:type' content='docs' />
                 <meta name='og:url' content='http://cppvault.vercel.app' />
