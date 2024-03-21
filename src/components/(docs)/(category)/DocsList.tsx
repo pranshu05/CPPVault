@@ -1,14 +1,13 @@
 import DocsItem from './DocsItem';
 
 interface DocsListProps {
-    docs: { slug: string; frontmatter: { title: string; date: string; description: string; readTime: number; img: string; category: string } }[];
-    viewCounts: { [key: string]: number };
+    docs: { slug: string; frontmatter: { title: string; description: string; readTime: number; img: string; category: string } }[];
 }
 
-const DocsList: React.FC<DocsListProps> = ({ docs, viewCounts }) => (
-    <div className='w-full grid grid-cols-1 md:grid-cols-2 gap-4 mt-10'>
+const DocsList: React.FC<DocsListProps> = ({ docs }) => (
+    <div className='w-full flex flex-col gap-6 mt-10'>
         {docs.map(({ slug, frontmatter }) => (
-            <DocsItem key={slug} slug={slug} title={frontmatter.title} date={frontmatter.date} description={frontmatter.description} viewCount={viewCounts[slug]} img={frontmatter.img} category={frontmatter.category}/>
+            <DocsItem key={slug} slug={slug} title={frontmatter.title} description={frontmatter.description} img={frontmatter.img} category={frontmatter.category} />
         ))}
     </div>
 );

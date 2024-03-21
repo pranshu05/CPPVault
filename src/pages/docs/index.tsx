@@ -1,24 +1,9 @@
-import { useEffect, useState } from 'react';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import DocsPageHeader from '@/components/(docs)/DocsPageHeader';
 import CategoryList from '@/components/(docs)/CategoryList';
 import Head from 'next/head';
-
-interface Frontmatter {
-    title: string;
-    date: string;
-    description: string;
-    readTime: number;
-    img: string;
-    category: string;
-}
-
-interface Docs {
-    slug: string;
-    frontmatter: Frontmatter;
-}
 
 const DocsIndex: React.FC<{ categories: string[] }> = ({ categories }) => {
     return (
@@ -42,11 +27,6 @@ export async function getStaticProps() {
         return {
             slug: fileName.replace(/\.mdx$/, ''),
             frontmatter: {
-                title: data.title || '',
-                date: data.date || '',
-                description: data.description || '',
-                readTime: data.readTime || 0,
-                img: data.img || '',
                 category: data.category || 'Uncategorized',
             },
         };

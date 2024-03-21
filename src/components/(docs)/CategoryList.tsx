@@ -1,13 +1,9 @@
 import Link from 'next/link';
+import categoryDisplayNames from './CategoryDisplayNames';
 
 interface CategoryListProps {
     categories: string[];
 }
-
-const categoryDisplayNames: { [key: string]: string } = {
-    "DS": "Data Structures",
-    "OOP": "Object Oriented Programming",
-};
 
 const CategoryList: React.FC<CategoryListProps> = ({ categories }) => {
     return (
@@ -23,7 +19,7 @@ const CategoryList: React.FC<CategoryListProps> = ({ categories }) => {
                         </Link>
                     );
                 })}
-            </div>
+            </div> 
         </div>
     );
 };

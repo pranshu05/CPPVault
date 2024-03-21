@@ -20,10 +20,8 @@ export const languages = {
 
 interface Frontmatter {
     title: string;
-    date: string;
     description: string;
     readTime: number;
-    img: string;
     category: string;
 }
 
@@ -38,7 +36,7 @@ interface DocsProps {
 }
 
 const Docs: React.FC<DocsProps> = ({ frontMatter, mdxSource }) => {
-    const { slug, title, date, description, readTime, img, category } = frontMatter;
+    const { slug, title, description, readTime } = frontMatter;
 
     const [viewCount, setViewCount] = useState<number | null>(null);
 
@@ -58,12 +56,12 @@ const Docs: React.FC<DocsProps> = ({ frontMatter, mdxSource }) => {
     return (
         <div className="w-11/12 md:w-4/5 lg:w-3/4 xl:w-2/3 2xl:w-1/2 mx-auto">
             <Head>
-                <title>CPPVault // {title}</title>
+                <title>CPPVault</title>
                 <meta name='og:title' content={`CPPVault // ${title}`} />
                 <meta name='og:description' content={`${description}`} />
             </Head>
             <div className="py-28 text-center">
-                <MetaInfo date={date} readTime={readTime} viewCount={viewCount} />
+                <MetaInfo readTime={readTime} viewCount={viewCount} />
                 <h1 className="text-6xl font-bold text-zinc-100 mb-4">{title}</h1>
                 <p className="text-xl text-zinc-400">{description}</p>
             </div>
