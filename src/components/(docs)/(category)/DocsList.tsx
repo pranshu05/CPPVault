@@ -5,7 +5,7 @@ interface DocsListProps {
 }
 
 const DocsList: React.FC<DocsListProps> = ({ docs }) => (
-    <div className='w-full flex flex-col gap-6 mt-10'>
+    <div className='w-full flex flex-col gap-4 mt-10'>
         {docs.map(({ slug, frontmatter }) => (
             <DocsItem key={slug} slug={slug} title={frontmatter.title} description={frontmatter.description} img={frontmatter.img} category={frontmatter.category} />
         ))}
