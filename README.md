@@ -42,14 +42,11 @@ tags: [array, data-structures]
 
 ## Contributors
 
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
+Thanks to all contributors who have helped in making this project better.
 
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
+<a href="https://github.com/pranshu05/cppvault/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=pranshu05/cppvault" />
+</a>
 
 ## License
 

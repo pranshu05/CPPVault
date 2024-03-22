@@ -1,7 +1,7 @@
-import { db } from '../firebase/firebase';
-import { collection, doc, getDoc, setDoc, serverTimestamp, updateDoc } from 'firebase/firestore';
+import { db } from "../firebase/firebase";
+import { collection, doc, getDoc, setDoc, serverTimestamp, updateDoc } from "firebase/firestore";
 
-const viewsCollection = collection(db, 'views');
+const viewsCollection = collection(db, "views");
 
 export async function getViewCount(slug: string): Promise<number> {
     const viewsDoc = doc(viewsCollection, slug);
@@ -10,7 +10,7 @@ export async function getViewCount(slug: string): Promise<number> {
         const docSnapshot = await getDoc(viewsDoc);
         return docSnapshot.exists() ? docSnapshot.data().count : 0;
     } catch (error) {
-        console.error('Error getting view count:', error);
+        console.error("Error getting view count:", error);
         return 0;
     }
 }
@@ -32,6 +32,6 @@ export async function incrementViewCount(slug: string): Promise<void> {
             });
         }
     } catch (error) {
-        console.error('Error incrementing view count:', error);
+        console.error("Error incrementing view count:", error);
     }
 }

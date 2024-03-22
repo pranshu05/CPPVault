@@ -1,31 +1,29 @@
-import { useEffect, useState } from 'react';
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
-import { serialize } from 'next-mdx-remote/serialize';
-import rehypeHighlight from 'rehype-highlight';
-import Head from 'next/head';
+import { useEffect, useState } from "react";
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+import { serialize } from "next-mdx-remote/serialize";
+import rehypeHighlight from "rehype-highlight";
+import Head from "next/head";
+import MetaInfo from "@/components/(docs)/(category)/(slug)/MetaInfo";
+import DocsContent from "@/components/(docs)/(category)/(slug)/DocsContent";
+import Authors from "@/components/(docs)/(category)/(slug)/Authors";
+import DocsFooter from "@/components/(docs)/(category)/(slug)/DocsFooter";
+import { getViewCount, incrementViewCount } from "../../../../lib/ViewsData";
+import langCPP from "highlight.js/lib/languages/cpp";
+import "highlight.js/styles/github-dark.css";
 
-import MetaInfo from '@/components/(docs)/(category)/(slug)/MetaInfo';
-import DocsContent from '@/components/(docs)/(category)/(slug)/DocsContent';
-import DocsFooter from '@/components/(docs)/(category)/(slug)/DocsFooter';
-import { getViewCount, incrementViewCount } from '../../../../lib/ViewsData';
-
-import langCPP from "highlight.js/lib/languages/cpp"
-import 'highlight.js/styles/github-dark.css'
-
-export const languages = {
-    cpp: langCPP,
-}
+const languages = { cpp: langCPP };
 
 interface Frontmatter {
     title: string;
     description: string;
     readTime: number;
     category: string;
+    authors: string[];
 }
 
-interface DocsProps {
+interface DocsPageProps {
     frontMatter: Frontmatter & { slug: string };
     mdxSource: {
         compiledSource: string;
@@ -33,11 +31,12 @@ interface DocsProps {
         scope: Record<string, unknown>;
         frontmatter: unknown;
     };
+    prevLink: string;
+    nextLink: string;
 }
 
-const Docs: React.FC<DocsProps> = ({ frontMatter, mdxSource }) => {
-    const { slug, title, description, readTime } = frontMatter;
-
+const DocsPage: React.FC<DocsPageProps> = ({ frontMatter, mdxSource, prevLink, nextLink }) => {
+    const { slug, title, description, readTime, authors } = frontMatter;
     const [viewCount, setViewCount] = useState<number | null>(null);
 
     useEffect(() => {
@@ -46,46 +45,44 @@ const Docs: React.FC<DocsProps> = ({ frontMatter, mdxSource }) => {
                 await incrementViewCount(slug);
                 setViewCount(await getViewCount(slug));
             } catch (error) {
-                console.error('Error getting view count:', error);
+                console.error("Error getting view count:", error);
             }
         };
-
         fetchViewCount();
     }, [slug]);
 
     return (
-        <div className="w-11/12 md:w-4/5 lg:w-3/4 xl:w-2/3 2xl:w-1/2 mx-auto">
+        <div className="w-11/12 md:w-4/5 lg:w-3/4 xl:w-2/3 2xl:w-1/2 mx-auto my-10">
             <Head>
                 <title>CPPVault</title>
-                <meta name='og:title' content={`CPPVault // ${title}`} />
-                <meta name='og:description' content={`${description}`} />
+                <meta name="og:title" content={`CPPVault // ${title}`} />
+                <meta name="og:description" content={`${description}`} />
             </Head>
             <div className="py-28 text-center">
                 <MetaInfo readTime={readTime} viewCount={viewCount} />
                 <h1 className="text-6xl font-bold text-zinc-100 mb-4">{title}</h1>
                 <p className="text-xl text-zinc-400">{description}</p>
             </div>
-            <hr className='mt-8 mb-4' />
+            <hr className="mt-8 mb-4" />
             <DocsContent mdxSource={mdxSource} />
-            <DocsFooter />
+            <Authors authors={authors} />
+            <DocsFooter prevLink={prevLink} nextLink={nextLink} />
         </div>
     );
 };
 
 export async function getStaticPaths() {
-    const docsDirectory = path.join(process.cwd(), 'src', 'docs');
+    const docsDirectory = path.join(process.cwd(), "src", "docs");
     const docs = fs.readdirSync(docsDirectory);
 
-    const paths = docs.map((doc) => {
-        const fileName = doc.replace(/\.mdx$/, '');
+    const paths = docs.map(doc => {
+        const fileName = doc.replace(/\.mdx$/, "");
         const filePath = path.join(docsDirectory, doc);
-        const fileContent = fs.readFileSync(filePath, 'utf-8');
+        const fileContent = fs.readFileSync(filePath, "utf-8");
         const { data } = matter(fileContent);
 
-        const category = encodeURIComponent(data.category || 'Uncategorized');
-        return {
-            params: { category, slug: fileName },
-        };
+        const category = encodeURIComponent(data.category || "Uncategorized");
+        return { params: { category, slug: fileName } };
     });
 
     return { paths, fallback: false };
@@ -93,8 +90,23 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }: { params: { category: string; slug: string } }) {
     const { category, slug } = params;
-    const filePath = path.join(process.cwd(), 'src', 'docs', `${slug}.mdx`);
-    const fileContent = fs.readFileSync(filePath, 'utf-8');
+    const docsDirectory = path.join(process.cwd(), "src", "docs");
+    const docs = fs.readdirSync(docsDirectory);
+    const docsInCategory = docs.filter(doc => {
+        const filePath = path.join(docsDirectory, doc);
+        const fileContent = fs.readFileSync(filePath, "utf-8");
+        const { data } = matter(fileContent);
+        return encodeURIComponent(data.category || "Uncategorized") === category;
+    });
+
+    const currentIndex = docsInCategory.findIndex(doc => doc.replace(/\.mdx$/, "") === slug);
+    const prevSlug = currentIndex > 0 ? docsInCategory[currentIndex - 1].replace(/\.mdx$/, "") : null;
+    const nextSlug = currentIndex < docsInCategory.length - 1 ? docsInCategory[currentIndex + 1].replace(/\.mdx$/, "") : null;
+    const prevLink = prevSlug ? `/docs/${category}/${prevSlug}` : null;
+    const nextLink = nextSlug ? `/docs/${category}/${nextSlug}` : null;
+
+    const filePath = path.join(process.cwd(), "src", "docs", `${slug}.mdx`);
+    const fileContent = fs.readFileSync(filePath, "utf-8");
     const { data: frontMatter, content } = matter(fileContent);
 
     const mdxSource = await serialize(content, {
@@ -107,7 +119,7 @@ export async function getStaticProps({ params }: { params: { category: string; s
         },
     });
 
-    return { props: { frontMatter: { ...frontMatter, slug }, mdxSource } };
+    return { props: { frontMatter: { ...frontMatter, slug }, mdxSource, prevLink, nextLink } };
 }
 
-export default Docs;
+export default DocsPage;

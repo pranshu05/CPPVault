@@ -1,4 +1,4 @@
-import { MDXRemote } from 'next-mdx-remote';
+import { MDXRemote } from "next-mdx-remote";
 
 interface DocsContentProps {
     mdxSource: {

@@ -4,4 +4,32 @@ description: 'Class in Object Oriented Programming using CPP'
 readTime: 10
 category: 'OOP'
 tags: [class, OOP]
+authors: [pranshu05]
 ---
+
+# Class
+
+A class is a user-defined data type that we can use in our program. A class is defined in C++ using keyword `class` followed by the name of the class. It contains data members (variables) and member functions (functions). The data members and member functions are called members of the class. The data members are defined as variables and member functions are defined as functions.
+
+## Object
+
+An object is an instance of a class. When a class is defined, no memory is allocated but when it is instantiated (i.e. an object is created) memory is allocated. An object is created using the `new` keyword followed by the class name.
+
+```cpp
+class MyClass {
+    // class members and functions go here
+};
+```
+
+## Example
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class MyClass {
+    public:
+        int myNum;
+        string myString;
+};
+```
