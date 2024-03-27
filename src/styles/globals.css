@@ -129,6 +129,9 @@
 
 .post code {
   border-radius: 0.4rem;
+  color: #c9d1d9;
+  background: #0d1117;
+  padding: 0.1rem 0.3rem;
 }
 
 .post hr {

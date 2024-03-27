@@ -21,11 +21,12 @@ The project structure is designed in a way that it is easy to understand and nav
 
 ```mdx
 ---
-title: 'Array'
-description: 'Arrays using CPP'
-readTime: 10
-category: 'DS'
-tags: [array, data-structures]
+title: 'Array' //title of the documentation
+description: 'Arrays in Data structures using CPP' //description of the documentation
+readTime: 10 //time to read the documentation
+category: 'DS' //category of the documentation
+tags: [array, data-structures] //tags related to the documentation. Add tags in the form of array [] and separeted by comma.
+authors: [pranshu05] //github usernames of authors of the documentation. Add authors in the form of array [] and separeted by comma.
 ---
 ```
 
