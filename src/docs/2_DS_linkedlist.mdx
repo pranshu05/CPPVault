@@ -394,3 +394,70 @@ temp1->link = temp2->link;
 free(temp2);
 temp2 = nullptr;
 ```
+
+### Reverse a Linked List
+
+To reverse a Linked List, we need to keep track of 3 pointers. One pointer will point to the current node, the second pointer will point to the previous node, and the third pointer will point to the next node. We will traverse the list and update the links of the nodes.
+
+```cpp
+Node* reverse(Node* head){
+    Node* current = head;
+    Node* prev = nullptr;
+    Node* next = nullptr;
+
+    while(current != nullptr){
+        next = current->link;
+        current->link = prev;
+        prev = current;
+        current = next;
+    }
+    head = prev;
+    return head;
+}
+```
+
+### Detect a loop in a Linked List
+
+To detect a loop in a Linked List, we will use the Floyd's Cycle Detection Algorithm. We will keep two pointers, one slow and one fast. The slow pointer will move one step at a time and the fast pointer will move two steps at a time. If there is a loop in the Linked List, the two pointers will meet at some point.
+
+```cpp
+bool detectLoop(Node* head){
+    Node* slow = head;
+    Node* fast = head;
+
+    while(slow && fast && fast->link){
+        slow = slow->link;
+        fast = fast->link->link;
+
+        if(slow == fast)
+            return true;
+    }
+    return false;
+}
+```
+
+### Find the starting point of the loop in a Linked List
+
+To find the starting point of the loop in a Linked List, we will use the Floyd's Cycle Detection Algorithm. We will keep two pointers, one slow and one fast. The slow pointer will move one step at a time and the fast pointer will move two steps at a time. If there is a loop in the Linked List, the two pointers will meet at some point. After that, we will move the slow pointer to the head of the list and move both pointers one step at a time. The point where the two pointers meet is the starting point of the loop.
+
+```cpp
+Node* findLoopStart(Node* head){
+    Node* slow = head;
+    Node* fast = head;
+
+    while(slow && fast && fast->link){
+        slow = slow->link;
+        fast = fast->link->link;
+
+        if(slow == fast){
+            slow = head;
+            while(slow != fast){
+                slow = slow->link;
+                fast = fast->link;
+            }
+            return slow;
+        }
+    }
+    return nullptr;
+}
+```
