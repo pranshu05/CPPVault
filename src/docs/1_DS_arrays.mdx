@@ -7,11 +7,11 @@ tags: [array, data-structures]
 authors: [pranshu05]
 ---
 
-# Array
+## Array
 
 An array is a collection of items stored at contiguous memory locations. The idea is to store multiple items of the same type together. This makes it easier to calculate the position of each element by simply adding an offset to a base value, i.e., the memory location of the first element of the array (generally denoted by the name of the array).
 
-# Declaration of Array
+## Declaration of Array
 
 We declare an array in C++ as follows:
 
@@ -27,11 +27,11 @@ address(i) = base_address + i * size_of_data_type
 
 Array are static in nature, which means that the size of the array is fixed at compile time. Once the size of the array is defined, it cannot be changed.
 
-# Initialization of Array
+## Initialization of Array
 
 It is the process of assigning values to the array elements. We can initialize an array at the time of declaration or after declaration.
 
-## Initialization of Array at the time of Declaration
+### Initialization of Array at the time of Declaration
 
 In this method, we initialize the array at the time of declaration. The syntax is as follows:
 
@@ -41,7 +41,7 @@ int arr[5] = {1, 2, 3, 4, 5};
 
 This initializes an array of integers with the values 1, 2, 3, 4, and 5.
 
-## Initialization of Array without specifying Size
+### Initialization of Array without specifying Size
 
 In this method, we do not specify the size of the array. The size of the array is determined by the number of elements in the initialization list. The syntax is as follows:
 
@@ -51,7 +51,7 @@ int arr[] = {1, 2, 3, 4, 5};
 
 This initializes an array of integers with the values 1, 2, 3, 4, and 5. The size of the array is determined by the number of elements in the initialization list, which is 5 in this case.
 
-## Initialization of Array after Declaration
+### Initialization of Array after Declaration
 
 In this method, we initialize the array after declaration. The syntax is as follows:
 
@@ -66,7 +66,7 @@ arr[4] = 5;
 
 This initializes an array of integers with the values 1, 2, 3, 4, and 5.
 
-# Accessing Array Elements
+## Accessing Array Elements
 
 We can access the elements of an array using the index of the element. The index of the first element is 0, and the index of the last element is the size of the array minus 1. For example, in the array `arr[5] = {1, 2, 3, 4, 5}`, the first element is `arr[0]`, and the last element is `arr[4]`.
 
@@ -84,13 +84,13 @@ This will output:
 1 2 3 4 5
 ```
 
-# Array Operations
+## Array Operations
 
-## Insertion
+### Insertion
 
 Insertion is the process of adding an element to the array. The element can be inserted at the beginning, end, or any given position in the array.
 
-### Insertion at the Beginning
+#### Insertion at the Beginning
 
 To insert an element at the beginning of the array, we need to shift all the elements to the right and then insert the new element at the beginning.
 
@@ -120,7 +120,7 @@ This will output:
 
 This output represents the array after the insertion operation. The number `6` was inserted at the beginning of the array, shifting the original elements to the right. The original array was `1 2 3 4 5`, and after the insertion of `6` at the beginning, it became `6 1 2 3 4 5`.
 
-### Insertion at the End
+#### Insertion at the End
 
 To insert an element at the end of the array, we simply insert the element at the last index of the array.
 
@@ -146,7 +146,7 @@ This will output:
 
 This output represents the array after the insertion operation. The number `6` was inserted at the end of the array.
 
-### Insertion at a Given Position
+#### Insertion at a Given Position
 
 To insert an element at a given position in the array, we need to shift all the elements to the right from the given position and then insert the new element at the given position.
 
@@ -177,11 +177,11 @@ This will output:
 
 This output represents the array after the insertion operation. The number `6` was inserted at position `2` in the array, shifting the original elements to the right. The original array was `1 2 3 4 5`, and after the insertion of `6` at position `2`, it became `1 2 6 3 4 5`.
 
-## Deletion
+### Deletion
 
 Deletion is the process of removing an element from the array. The element can be deleted from the beginning, end, or any given position in the array.
 
-### Deletion at the Beginning
+#### Deletion at the Beginning
 
 To delete an element from the beginning of the array, we need to shift all the elements to the left and then delete the first element.
 
@@ -209,7 +209,7 @@ This will output:
 
 This output represents the array after the deletion operation. The number `1` was deleted from the beginning of the array, shifting the original elements to the left. The original array was `1 2 3 4 5`, and after the deletion of `1` from the beginning, it became `2 3 4 5`.
 
-### Deletion at the End
+#### Deletion at the End
 
 To delete an element from the end of the array, we simply delete the last element of the array.
 
@@ -233,7 +233,7 @@ This will output:
 
 This output represents the array after the deletion operation. The number `5` was deleted from the end of the array.
 
-### Deletion at a Given Position
+#### Deletion at a Given Position
 
 To delete an element from a given position in the array, we need to shift all the elements to the left from the given position and then delete the element at the given position.
 
@@ -262,7 +262,7 @@ This will output:
 
 This output represents the array after the deletion operation. The number `3` was deleted from position `2` in the array, shifting the original elements to the left. The original array was `1 2 3 4 5`, and after the deletion of `3` from position `2`, it became `1 2 4 5`.
 
-# 2D Array
+## 2D Array
 
 A 2D array is an array of arrays. It is a collection of rows and columns. The elements of a 2D array are stored in contiguous memory locations. The memory location of the `i`-th row and `j`-th column can be calculated as follows:
 
@@ -270,7 +270,7 @@ A 2D array is an array of arrays. It is a collection of rows and columns. The el
 address(i, j) = base_address + (i * number_of_columns + j) * size_of_data_type
 ```
 
-# Declaration of 2D Array
+## Declaration of 2D Array
 
 We declare a 2D array in C++ as follows:
 
@@ -280,11 +280,11 @@ int arr[3][3];
 
 This declares a 2D array of integers with 3 rows and 3 columns.
 
-# Initialization of 2D Array
+## Initialization of 2D Array
 
 We can initialize a 2D array at the time of declaration or after declaration.
 
-## Initialization of 2D Array at the time of Declaration
+### Initialization of 2D Array at the time of Declaration
 
 In this method, we initialize the 2D array at the time of declaration. The syntax is as follows:
 
@@ -294,7 +294,7 @@ int arr[3][3] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
 
 This initializes a 2D array of integers with 3 rows and 3 columns.
 
-## Initialization of 2D Array without specifying Size
+### Initialization of 2D Array without specifying Size
 
 In this method, we do not specify the size of the 2D array. The size of the 2D array is determined by the number of rows and columns in the initialization list. The syntax is as follows:
 
@@ -304,7 +304,7 @@ int arr[][3] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
 
 This initializes a 2D array of integers with 3 rows and 3 columns.
 
-## Initialization of 2D Array after Declaration
+### Initialization of 2D Array after Declaration
 
 In this method, we initialize the 2D array after declaration. The syntax is as follows:
 
@@ -323,7 +323,7 @@ arr[2][2] = 9;
 
 This initializes a 2D array of integers with 3 rows and 3 columns.
 
-# Accessing 2D Array Elements
+## Accessing 2D Array Elements
 
 We can access the elements of a 2D array using the row and column indices. The row index is the first index, and the column index is the second index. For example, in the 2D array `arr[3][3] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}`, the element at row `1` and column `1` is `arr[1][1]`.
 
@@ -346,7 +346,7 @@ This will output:
 7 8 9
 ```
 
-# 3D Array
+## 3D Array
 
 A 3D array is an array of 2D arrays. It is a collection of 2D arrays. The elements of a 3D array are stored in contiguous memory locations. The memory location of the `i`-th 2D array, `j`-th row, and `k`-th column can be calculated as follows:
 
@@ -354,7 +354,7 @@ A 3D array is an array of 2D arrays. It is a collection of 2D arrays. The elemen
 address(i, j, k) = base_address + (i * number_of_2D_arrays * number_of_rows + j * number_of_columns + k) * size_of_data_type
 ```
 
-# Declaration of 3D Array
+## Declaration of 3D Array
 
 We declare a 3D array in C++ as follows:
 
@@ -366,7 +366,7 @@ This declares a 3D array of integers with 2 2D arrays, 3 rows, and 3 columns.
 
 We won't be discussing the initialization and accessing of 3D arrays as it is similar to 2D arrays.
 
-# Arrays and Pointers
+## Arrays and Pointers
 
 Arrays and pointers are closely related in C++. An array name is a constant pointer to the first element of the array. The array name stores the base address of the array. The array name can be used as a pointer to access the elements of the array.
 
@@ -389,7 +389,7 @@ This will output:
 
 In the above code, `arr` is the base address of the array. We can access the elements of the array using pointer arithmetic. The expression `*(arr + i)` is equivalent to `arr[i]`.
 
-## Pointer to Array
+### Pointer to Array
 
 A pointer to an array is a pointer that points to the first element of the array. We can declare a pointer to an array as follows:
 
@@ -414,7 +414,7 @@ This will output:
 
 In the above code, `*(ptr + i)` is equivalent to `arr[i]`.
 
-# Array of Pointers
+## Array of Pointers
 
 An array of pointers is an array in which each element is a pointer. We can declare an array of pointers as follows:
 
@@ -446,6 +446,6 @@ This will output:
 
 In the above code, `arr[0]`, `arr[1]`, `arr[2]`, `arr[3]`, and `arr[4]` are pointers to the integers `a`, `b`, `c`, `d`, and `e`, respectively. We can access the elements of the array using the pointers `arr[0]`, `arr[1]`, `arr[2]`, `arr[3]`, and `arr[4]`.
 
-# Conclusion
+## Conclusion
 
 Arrays are an important data structure in C++. They are used to store multiple elements of the same type together. Arrays can be 1D, 2D, or 3D. We can perform various operations on arrays, such as insertion and deletion. Arrays and pointers are closely related in C++. An array name is a constant pointer to the first element of the array. We can access the elements of the array using pointer arithmetic.

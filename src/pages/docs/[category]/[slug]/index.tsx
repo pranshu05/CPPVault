@@ -9,6 +9,7 @@ import MetaInfo from "@/components/(docs)/(category)/(slug)/MetaInfo";
 import DocsContent from "@/components/(docs)/(category)/(slug)/DocsContent";
 import Authors from "@/components/(docs)/(category)/(slug)/Authors";
 import DocsFooter from "@/components/(docs)/(category)/(slug)/DocsFooter";
+import TableOfContents from "@/components/(docs)/(category)/(slug)/TableOfContent";
 import { getViewCount, incrementViewCount } from "../../../../lib/ViewsData";
 import langCPP from "highlight.js/lib/languages/cpp";
 import "highlight.js/styles/github-dark.css";
@@ -35,9 +36,17 @@ interface DocsPageProps {
     nextLink: string;
 }
 
-const DocsPage: React.FC<DocsPageProps> = ({ frontMatter, mdxSource, prevLink, nextLink }) => {
+interface Heading {
+    id: string;
+    text: string;
+    top: number;
+    type: string;
+}
+
+const DocsPage: React.FC<DocsPageProps> = ({ frontMatter, mdxSource, prevLink, nextLink, }) => {
     const { slug, title, description, readTime, authors } = frontMatter;
     const [viewCount, setViewCount] = useState<number | null>(null);
+    const [headings, setHeadings] = useState<Heading[]>([]);
 
     useEffect(() => {
         const fetchViewCount = async () => {
@@ -51,22 +60,40 @@ const DocsPage: React.FC<DocsPageProps> = ({ frontMatter, mdxSource, prevLink, n
         fetchViewCount();
     }, [slug]);
 
+    useEffect(() => {
+        const headings: Heading[] = Array.from(
+            document.querySelectorAll<HTMLElement>('h2, h3')
+        ).map((heading) => ({
+            id: heading.id,
+            text: heading.textContent || "",
+            top: heading.offsetTop,
+            type: heading.tagName.toLowerCase(),
+        }));
+        setHeadings(headings);
+    }, []);
+
+
     return (
-        <div className="w-11/12 md:w-4/5 lg:w-3/4 xl:w-2/3 2xl:w-1/2 mx-auto my-10">
-            <Head>
-                <title>CPPVault</title>
-                <meta name="og:title" content={`CPPVault // ${title}`} />
-                <meta name="og:description" content={`${description}`} />
-            </Head>
-            <div className="py-28 text-center">
-                <MetaInfo readTime={readTime} viewCount={viewCount} />
-                <h1 className="text-6xl font-bold text-zinc-100 mb-4">{title}</h1>
-                <p className="text-xl text-zinc-400">{description}</p>
+        <div className="w-full">
+            <div className="w-full">
+                <TableOfContents headings={headings} />
             </div>
-            <hr className="mt-8 mb-4" />
-            <DocsContent mdxSource={mdxSource} />
-            <Authors authors={authors} />
-            <DocsFooter prevLink={prevLink} nextLink={nextLink} />
+            <div className="w-11/12 md:w-4/5 lg:w-3/4 xl:w-2/3 2xl:w-1/2 mx-auto my-10">
+                <Head>
+                    <title>CPPVault</title>
+                    <meta name="og:title" content={`CPPVault // ${title}`} />
+                    <meta name="og:description" content={`${description}`} />
+                </Head>
+                <div className="py-28 text-center">
+                    <MetaInfo readTime={readTime} viewCount={viewCount} />
+                    <h1 className="text-6xl font-bold text-zinc-100 mb-4">{title}</h1>
+                    <p className="text-xl text-zinc-400">{description}</p>
+                </div>
+                <hr className="mt-8 mb-4" />
+                <DocsContent mdxSource={mdxSource} />
+                <Authors authors={authors} />
+                <DocsFooter prevLink={prevLink} nextLink={nextLink} />
+            </div>
         </div>
     );
 };
@@ -92,7 +119,7 @@ export async function getStaticProps({ params }: { params: { category: string; s
     const { category, slug } = params;
     const docsDirectory = path.join(process.cwd(), "src", "docs");
     const docs = fs.readdirSync(docsDirectory);
-    const docsInCategory = docs.filter(doc => {
+    const docsInCategory = docs.filter((doc) => {
         const filePath = path.join(docsDirectory, doc);
         const fileContent = fs.readFileSync(filePath, "utf-8");
         const { data } = matter(fileContent);
