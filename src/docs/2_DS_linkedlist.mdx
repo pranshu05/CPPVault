@@ -55,6 +55,8 @@ int main() {
 }
 ```
 
+Here we created a node with data 1 and the next pointer pointing to NULL. We also freed the memory allocated to the node after printing the data.
+
 #### Output:
 
 ```sh
@@ -106,7 +108,7 @@ int main() {
 }
 ```
 
-You can also achieve the same thing by:
+In the above code we created three different nodes and updated the next pointers each nodes. You can also achieve the same thing by:
 
 ```cpp
 #include <iostream>
@@ -144,13 +146,15 @@ int main() {
 }
 ```
 
+In the above code we first initialized the data of the nodes while creating them. Then we linked the nodes and printed the linked list. Finally, we freed the memory allocated to the nodes.
+
 #### Output:
 
 ```sh
 Linked List: 1 2 3
 ```
 
-This method creates unnecessary pointers which creates memory that is not useful. Below is the most optimized method to create a Linked List.
+This method creates unnecessary pointers which creates memory that is not useful. Below is a more optimized method to create a Linked List.
 
 ```cpp
 #include <iostream>
@@ -218,6 +222,8 @@ int main(){
 }
 ```
 
+In the above code, we created a function countNodes that takes the head of the Linked List as an argument and counts the number of nodes in the list. We created a pointer ptr and assigned it to the head of the list. We traversed the list and incremented the count variable for each node. Finally, we printed the count variable.
+
 ### Print the data of a list
 
 ```cpp
@@ -248,9 +254,13 @@ int main(){
 }
 ```
 
+In the above code, we created a function printData that takes the head of the Linked List as an argument and prints the data of the list. We created a pointer ptr and assigned it to the head of the list. We traversed the list and printed the data of each node.
+
+## Insertion in a Linked List
+
 ### Insert a node at the end of a list
 
-Let's say that there is a list containing 3 nodes, and there's a node that we want to insert. We will assign a temp pointer to the node which we want to insert at the end.
+Let's say that there is a list containing 3 nodes, and there's a node that we want to insert. We will assign a temp pointer to the node which we want to insert at the end. We will traverse the list using a pointer and we will stop at the last node of the list. We will update the link of the last node to the temp pointer.
 
 ```cpp
 #include<iostream>
@@ -323,6 +333,8 @@ int main(){
 }
 ```
 
+In the above code, we created a Linked List using the insertAtEnd function. We created a head node and a pointer pointing to the head node. We inserted 4 nodes at the end of the list using the insertAtEnd function. After adding all the elements, we moved the pointer back to the head node and printed the data of the list.
+
 ### Insert a node at the beginning of a list
 
 #### Abstract code:
@@ -345,6 +357,8 @@ ptr2->link = ptr->link
 ptr->link = ptr2
 //this joins the 2nd node with the inserted node
 ```
+
+## Deletion in a Linked List
 
 ### Delete the first node of a list
 
@@ -395,7 +409,7 @@ free(temp2);
 temp2 = nullptr;
 ```
 
-### Reverse a Linked List
+## Reverse a Linked List
 
 To reverse a Linked List, we need to keep track of 3 pointers. One pointer will point to the current node, the second pointer will point to the previous node, and the third pointer will point to the next node. We will traverse the list and update the links of the nodes.
 
@@ -416,7 +430,7 @@ Node* reverse(Node* head){
 }
 ```
 
-### Detect a loop in a Linked List
+## Detect a loop in a Linked List
 
 To detect a loop in a Linked List, we will use the Floyd's Cycle Detection Algorithm. We will keep two pointers, one slow and one fast. The slow pointer will move one step at a time and the fast pointer will move two steps at a time. If there is a loop in the Linked List, the two pointers will meet at some point.
 
@@ -436,7 +450,7 @@ bool detectLoop(Node* head){
 }
 ```
 
-### Find the starting point of the loop in a Linked List
+## Find the starting point of the loop in a Linked List
 
 To find the starting point of the loop in a Linked List, we will use the Floyd's Cycle Detection Algorithm. We will keep two pointers, one slow and one fast. The slow pointer will move one step at a time and the fast pointer will move two steps at a time. If there is a loop in the Linked List, the two pointers will meet at some point. After that, we will move the slow pointer to the head of the list and move both pointers one step at a time. The point where the two pointers meet is the starting point of the loop.
 

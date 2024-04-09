@@ -28,20 +28,11 @@
   text-decoration-color: rgb(212, 212, 216);
 }
 
-.post h1 {
+.post h1, .post h2 {
   font-size: 1.5rem;
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
   line-height: 1.5rem;
-  font-weight: 700;
-  color: rgb(244 244 245);
-}
-
-.post h2 {
-  font-size: 1.25rem;
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
-  line-height: 1.25rem;
   font-weight: 700;
   color: rgb(244 244 245);
 }
