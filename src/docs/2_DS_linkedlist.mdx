@@ -26,7 +26,7 @@ The first node is called the head node. The only information we keep for the lis
 -   Doubly Linked List: Both Forward and Backward navigation is possible.
 -   Circular Linked List: The last node is linked to the first node.
 
-## Implementation (Singly Linked List)
+## Implementation of Singly Linked List
 
 ### Creating a Node
 
@@ -450,7 +450,7 @@ bool detectLoop(Node* head){
 }
 ```
 
-## Find the starting point of the loop in a Linked List
+### Find the starting point of the loop in a Linked List
 
 To find the starting point of the loop in a Linked List, we will use the Floyd's Cycle Detection Algorithm. We will keep two pointers, one slow and one fast. The slow pointer will move one step at a time and the fast pointer will move two steps at a time. If there is a loop in the Linked List, the two pointers will meet at some point. After that, we will move the slow pointer to the head of the list and move both pointers one step at a time. The point where the two pointers meet is the starting point of the loop.
 
@@ -473,5 +473,218 @@ Node* findLoopStart(Node* head){
         }
     }
     return nullptr;
+}
+```
+
+## Doubly Linked List
+
+Doubly Linked List is a type of Linked List in which each node has two pointers, one pointing to the next node and the other pointing to the previous node.
+
+```cpp
+struct Node{
+    int data;
+    Node* next;
+    Node* prev;
+}
+```
+
+## Implementation of Doubly Linked List
+
+### Creating a Doubly Linked List
+
+```cpp
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* next;
+    Node* prev;
+};
+
+int main() {
+    Node* head = new Node();
+    head->data = 1;
+    head->next = nullptr;
+    head->prev = nullptr;
+
+    Node* second = new Node();
+    second->data = 2;
+    second->next = nullptr;
+    second->prev = head;
+    head->next = second;
+
+    Node* third = new Node();
+    third->data = 3;
+    third->next = nullptr;
+    third->prev = second;
+    second->next = third;
+
+    // Printing the doubly linked list
+    cout << "Doubly Linked List: ";
+    Node* temp = head;
+    while (temp != nullptr) {
+        cout << temp->data << " ";
+        temp = temp->next;
+    }
+    cout << endl;
+
+    // Freeing memory
+    delete head;
+    delete second;
+    delete third;
+
+    return 0;
+}
+```
+
+In the above code, we created a doubly linked list with 3 nodes. We created a head node and two other nodes. We updated the next and prev pointers of each node. Finally, we printed the doubly linked list and freed the memory allocated to the nodes.
+
+#### Output:
+
+```sh
+Doubly Linked List: 1 2 3
+```
+
+### Insertion in a Doubly Linked List
+
+#### Insert a node at the end of a list
+
+```cpp
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* next;
+    Node* prev;
+};
+
+void insertAtEnd(Node* head, int data) {
+    Node* ptr = head;
+    Node* temp = new Node();
+    temp->data = data;
+    temp->next = nullptr;
+
+    while (ptr->next != nullptr) {
+        ptr = ptr->next;
+    }
+    ptr->next = temp;
+    temp->prev = ptr;
+}
+
+int main() {
+    Node* head = new Node();
+    head->data = 1;
+    head->next = nullptr;
+    head->prev = nullptr;
+
+    insertAtEnd(head, 2);
+    insertAtEnd(head, 3);
+
+    // Printing the doubly linked list
+    cout << "Doubly Linked List: ";
+    Node* temp = head;
+    while (temp != nullptr) {
+        cout << temp->data << " ";
+        temp = temp->next;
+    }
+    cout << endl;
+
+    // Freeing memory
+    delete head;
+
+    return 0;
+}
+```
+
+In the above code, we created a doubly linked list with 3 nodes. We created a head node and inserted 2 nodes at the end of the list using the insertAtEnd function. Finally, we printed the doubly linked list and freed the memory allocated to the nodes.
+
+#### Output:
+
+```sh
+Doubly Linked List: 1 2 3
+```
+
+### Delete a node at the given position in a Doubly Linked List
+
+```cpp
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* next;
+    Node* prev;
+};
+
+void deleteNode(Node* head, int pos) {
+    Node* ptr = head;
+    int count = 1;
+
+    while (count < pos) {
+        ptr = ptr->next;
+        count++;
+    }
+
+    ptr->prev->next = ptr->next;
+    ptr->next->prev = ptr->prev;
+    delete ptr;
+}
+
+int main() {
+    Node* head = new Node();
+    head->data = 1;
+    head->next = nullptr;
+    head->prev = nullptr;
+
+    Node* second = new Node();
+    second->data = 2;
+    second->next = nullptr;
+    second->prev = head;
+    head->next = second;
+
+    Node* third = new Node();
+    third->data = 3;
+    third->next = nullptr;
+    third->prev = second;
+    second->next = third;
+
+    deleteNode(head, 2);
+
+    // Printing the doubly linked list
+    cout << "Doubly Linked List: ";
+    Node* temp = head;
+    while (temp != nullptr) {
+        cout << temp->data << " ";
+        temp = temp->next;
+    }
+    cout << endl;
+
+    // Freeing memory
+    delete head;
+    delete second;
+    delete third;
+
+    return 0;
+}
+```
+
+In the above code, we created a doubly linked list with 3 nodes. We created a head node and two other nodes. We deleted the 2<sup>nd</sup> node of the list using the deleteNode function. Finally, we printed the doubly linked list and freed the memory allocated to the nodes.
+
+#### Output:
+
+```sh
+Doubly Linked List: 1 3
+```
+
+## Circular Linked List
+
+Circular Linked List is a type of Linked List in which the last node of the list is linked to the first node of the list.
+
+```cpp
+struct Node{
+    int data;
+    Node* next;
 }
 ```
