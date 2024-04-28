@@ -191,7 +191,7 @@ int main(){
 
 In this code, we are accessing the address of all the nodes of the list using the sequential link arrow function, so we need not create any extra pointers and move the head pointer.
 
-## Traversing a single Linked List
+## Traversing a singly Linked List
 
 It is a method to go through each node of a Linked List from the beginning until the end node is reached.
 
@@ -362,6 +362,38 @@ ptr->link = ptr2
 //this joins the 2nd node with the inserted node
 ```
 
+let's say there is a linked list with 4 nodes and I want to insert a new node at the 3rd position. We will create a new node and we will traverse the list till the 2<sup>nd</sup> node. We will update the link of the 2<sup>nd</sup> node to the new node and the link of the new node to the 3<sup>rd</sup> node.
+
+```cpp
+#include<iostream>
+using namespace std;
+
+struct Node{
+    int data;
+    Node* link;
+};
+
+void insertAtPosition(Node* head, int data, int pos){
+    Node* ptr = head;
+    Node* temp = new Node();
+    temp->data = data;
+    temp->link = nullptr;
+
+    for(int i = 1; i < pos - 1; i++){
+        ptr = ptr->link;
+    }
+
+    temp->link = ptr->link;
+    ptr->link = temp;
+}
+
+int main(){
+    insertAtPosition(head, 123, 3);
+
+    return 0;
+}
+```
+
 ## Deletion in a Linked List
 
 ### Delete the first node of a list
@@ -376,8 +408,7 @@ Node* delFirst(Node* head){
 	else{
 		Node* temp = head;
 		head = head*link;
-		free(temp);
-		temp = nullptr;
+        delete temp;
 	}
 	return head;
 }
@@ -390,8 +421,7 @@ Suppose we already have a Linked List and we want to delete the last node of it.
 ```cpp
 temp1->link = nullptr; //remove the link between the second last and the last node
 
-free(temp2); //Delete the last node
-temp2 = bullptr;
+delete temp2; //free the memory of the last node
 ```
 
 #### Can I use only 1 temp ptr?
@@ -399,8 +429,7 @@ temp2 = bullptr;
 Yes! we can achieve it by using only 1 pointer. We will move the temp pointer to the second last node of the list and we'll free memory of the last node using the temp pointer.
 
 ```cpp
-free(temp->link);
-temp->link = nullptr;
+delete temp->link;
 ```
 
 ### Delete a node at the given position in a list
@@ -409,8 +438,8 @@ For this we will create 2 temp pointers pointing to the first node of the list. 
 
 ```cpp
 temp1->link = temp2->link;
-free(temp2);
-temp2 = nullptr;
+
+delete temp2;
 ```
 
 ## Reverse a Linked List
