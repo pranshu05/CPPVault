@@ -19,7 +19,7 @@ We declare an array in C++ as follows:
 int arr[5];
 ```
 
-This declares an array of integers. The array size is 5. The array elements are accessed using the index of the element. The array elements are stored in contiguous memory locations. The memory location of the first element is the base address of the array. The memory location of the `i`-th element can be calculated as follows:
+This declares an array of integers. The array size is 5. The array elements are accessed using the index of the element. The array elements are stored in contiguous memory locations. The memory location of the first element is the base address of the array. The memory location of the <code>i<sup>th</sup></code> element can be calculated as follows:
 
 ```cpp
 address(i) = base_address + i * size_of_data_type
@@ -100,12 +100,13 @@ int arr[5] = {1, 2, 3, 4, 5};
 int n = 6; // Element to be inserted
 int size = 5; // Size of the array
 
-for (int i = size - 1; i >= 0; i--) {
-    arr[i + 1] = arr[i];
+size++; // Increase the size of the array
+
+for (int i = size - 2; i >= 0; i--) {
+    arr[i + 1] = arr[i]; // Shift the elements to the right
 }
 
-arr[0] = n;
-size++;
+arr[0] = n; // Insert the new element at the beginning
 
 for (int i = 0; i < size; i++) {
     cout << arr[i] << " ";
@@ -264,7 +265,7 @@ This output represents the array after the deletion operation. The number `3` wa
 
 ## 2D Array
 
-A 2D array is an array of arrays. It is a collection of rows and columns. The elements of a 2D array are stored in contiguous memory locations. The memory location of the `i`-th row and `j`-th column can be calculated as follows:
+A 2D array is an array of arrays. It is a collection of rows and columns. The elements of a 2D array are stored in contiguous memory locations. The memory location of the <code>i<sup>th</sup></code> row and <code>j<sup>th</sup></code> column can be calculated as follows:
 
 ```cpp
 address(i, j) = base_address + (i * number_of_columns + j) * size_of_data_type
@@ -348,7 +349,7 @@ This will output:
 
 ## 3D Array
 
-A 3D array is an array of 2D arrays. It is a collection of 2D arrays. The elements of a 3D array are stored in contiguous memory locations. The memory location of the `i`-th 2D array, `j`-th row, and `k`-th column can be calculated as follows:
+A 3D array is an array of 2D arrays. It is a collection of 2D arrays. The elements of a 3D array are stored in contiguous memory locations. The memory location of the <code>i<sup>th</sup></code> 2D array, <code>j<sup>th</sup></code> row, and <code>k<sup>th</sup></code> column can be calculated as follows:
 
 ```cpp
 address(i, j, k) = base_address + (i * number_of_2D_arrays * number_of_rows + j * number_of_columns + k) * size_of_data_type
