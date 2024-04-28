@@ -57,7 +57,7 @@ int main() {
 
 Here we created a node with data 1 and the next pointer pointing to NULL. We also freed the memory allocated to the node after printing the data.
 
-Also don't forget to free the memory allocated to the node using the delete keyword, or lese something bad will happen 😜💀.
+Also don't forget to free the memory allocated to the node using the delete keyword, or else something bad will happen 😜💀.
 
 ![meme](https://i.imgur.com/c8uy1FZ.png)
 
@@ -463,6 +463,8 @@ Node* reverse(Node* head){
 }
 ```
 
+In the above code, we created a function reverse that takes the head of the Linked List as an argument and returns the head of the reversed Linked List. We created three pointers, current, prev, and next. We traversed the list and updated the links of the nodes. Finally, we returned the head of the reversed Linked List.
+
 ## Detect a loop in a Linked List
 
 To detect a loop in a Linked List, we will use the Floyd's Cycle Detection Algorithm. We will keep two pointers, one slow and one fast. The slow pointer will move one step at a time and the fast pointer will move two steps at a time. If there is a loop in the Linked List, the two pointers will meet at some point.
@@ -564,7 +566,7 @@ int main() {
 
     // Freeing memory
     delete head;
-    delete second;
+    // delete second; // Already deleted!
     delete third;
 
     return 0;
@@ -721,3 +723,300 @@ struct Node{
     Node* next;
 }
 ```
+
+## Implementation of Circular Linked List
+
+### Creating a Circular Linked List
+
+```cpp
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* next;
+};
+
+int main() {
+    Node* head = new Node();
+    head->data = 1;
+    head->next = head;
+
+    Node* second = new Node();
+    second->data = 2;
+    second->next = head;
+    head->next = second;
+
+    Node* third = new Node();
+    third->data = 3;
+    third->next = head;
+    second->next = third;
+
+    // Printing the circular linked list
+    cout << "Circular Linked List: ";
+    Node* temp = head;
+    while (temp->next != head) {
+        cout << temp->data << " ";
+        temp = temp->next;
+    }
+    cout << temp->data << endl;
+
+    // Freeing memory
+    delete head;
+    delete second;
+    delete third;
+
+    return 0;
+}
+```
+
+In the above code, we created a circular linked list with 3 nodes. We created a head node and two other nodes. We updated the next pointers of each node. Finally, we printed the circular linked list and freed the memory allocated to the nodes.
+
+#### Output:
+
+```sh
+Circular Linked List: 1 2 3
+```
+
+### Insertion in a Circular Linked List
+
+#### Insert a node at the beginning of a list
+
+```cpp
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* next;
+};
+
+void insertAtBeginning(Node* head, int data) {
+    Node* ptr = head;
+    Node* temp = new Node();
+    temp->data = data;
+    temp->next = head;
+
+    while (ptr->next != head) {
+        ptr = ptr->next;
+    }
+    ptr->next = temp;
+    head = temp;
+}
+
+int main() {
+    Node* head = new Node();
+    head->data = 1;
+    head->next = head;
+
+    insertAtBeginning(head, 0);
+
+    // Printing the circular linked list
+    cout << "Circular Linked List: ";
+    Node* temp = head;
+    while (temp->next != head) {
+        cout << temp->data << " ";
+        temp = temp->next;
+    }
+    cout << temp->data << endl;
+
+    // Freeing memory
+    delete head;
+
+    return 0;
+}
+```
+
+In the above code, we created a circular linked list with 2 nodes. We created a head node and inserted a node at the beginning of the list using the insertAtBeginning function. Finally, we printed the circular linked list and freed the memory allocated to the nodes.
+
+#### Output:
+
+```sh
+Circular Linked List: 0 1
+```
+
+#### Insert a node at the end of a list
+
+```cpp
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* next;
+};
+
+void insertAtEnd(Node* head, int data) {
+    Node* ptr = head;
+    Node* temp = new Node();
+    temp->data = data;
+    temp->next = head;
+
+    while (ptr->next != head) {
+        ptr = ptr->next;
+    }
+    ptr->next = temp;
+}
+
+int main() {
+    Node* head = new Node();
+    head->data = 1;
+    head->next = head;
+
+    insertAtEnd(head, 2);
+    insertAtEnd(head, 3);
+
+    // Printing the circular linked list
+    cout << "Circular Linked List: ";
+    Node* temp = head;
+    while (temp->next != head) {
+        cout << temp->data << " ";
+        temp = temp->next;
+    }
+    cout << temp->data << endl;
+
+    // Freeing memory
+    delete head;
+
+    return 0;
+}
+```
+
+In the above code, we created a circular linked list with 3 nodes. We created a head node and inserted 2 nodes at the end of the list using the insertAtEnd function. Finally, we printed the circular linked list and freed the memory allocated to the nodes.
+
+#### Output:
+
+```sh
+Circular Linked List: 1 2 3
+```
+
+### Insert a new node at a given position in a Circular Linked List
+
+```cpp
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* next;
+};
+
+void insertAtPosition(Node* head, int data, int pos) {
+    Node* ptr = head;
+    Node* temp = new Node();
+    temp->data = data;
+    temp->next = nullptr;
+
+    int count = 1;
+    while (count < pos - 1) {
+        ptr = ptr->next;
+        count++;
+    }
+
+    temp->next = ptr->next;
+    ptr->next = temp;
+}
+
+int main() {
+    Node* head = new Node();
+    head->data = 1;
+    head->next = head;
+
+    insertAtPosition(head, 2, 2);
+
+    // Printing the circular linked list
+    cout << "Circular Linked List: ";
+    Node* temp = head;
+    while (temp->next != head) {
+        cout << temp->data << " ";
+        temp = temp->next;
+    }
+    cout << temp->data << endl;
+
+    // Freeing memory
+    delete head;
+
+    return 0;
+}
+```
+
+In the above code, we created a circular linked list with 2 nodes. We created a head node and inserted a node at the 2<sup>nd</sup> position of the list using the insertAtPosition function. Finally, we printed the circular linked list and freed the memory allocated to the nodes.
+
+#### Output:
+
+```sh
+Circular Linked List: 1 2
+```
+
+### Delete a node at the given position in a Circular Linked List
+
+```cpp
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* next;
+};
+
+void deleteNode(Node* head, int pos) {
+    Node* ptr = head;
+    Node* prev = nullptr;
+    int count = 1;
+
+    while (count < pos) {
+        prev = ptr;
+        ptr = ptr->next;
+        count++;
+    }
+
+    prev->next = ptr->next;
+    delete ptr;
+}
+
+int main() {
+    Node* head = new Node();
+    head->data = 1;
+    head->next = head;
+
+    Node* second = new Node();
+    second->data = 2;
+    second->next = head;
+    head->next = second;
+
+    Node* third = new Node();
+    third->data = 3;
+    third->next = head;
+    second->next = third;
+
+    deleteNode(head, 2);
+
+    // Printing the circular linked list
+    cout << "Circular Linked List: ";
+    Node* temp = head;
+    while (temp->next != head) {
+        cout << temp->data << " ";
+        temp = temp->next;
+    }
+    cout << temp->data << endl;
+
+    // Freeing memory
+    delete head;
+    delete second;
+    delete third;
+
+    return 0;
+}
+```
+
+In the above code, we created a circular linked list with 3 nodes. We created a head node and two other nodes. We deleted the 2<sup>nd</sup> node of the list using the deleteNode function. Finally, we printed the circular linked list and freed the memory allocated to the nodes.
+
+#### Output:
+
+```sh
+Circular Linked List: 1 3
+```
+
+## Conclusion
+
+In this article, we learned about Linked List, its types, and how to implement Singly, Doubly, and Circular Linked List using C++. We also learned about the operations like Traversing, Insertion, Deletion, Reversing, and Detecting a loop in a Linked List. I hope you found this article helpful.
